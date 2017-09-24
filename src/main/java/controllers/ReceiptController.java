@@ -2,8 +2,10 @@ package controllers;
 
 import api.CreateReceiptRequest;
 import api.ReceiptResponse;
+import api.ReceiptsTagsResponse;
 import dao.ReceiptDao;
 import generated.tables.records.ReceiptsRecord;
+import generated.tables.records.ReceipttagsRecord;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -29,9 +31,9 @@ public class ReceiptController {
     }
 
     @GET
-    public List<ReceiptResponse> getReceipts() {
-        List<ReceiptsRecord> receiptRecords = receipts.getAllReceipts();
-        return receiptRecords.stream().map(ReceiptResponse::new).collect(toList());
+    public List<ReceiptsTagsResponse> getReceipts() {
+        List<ReceipttagsRecord> receiptRecords = receipts.getAllReceipts();
+        return receiptRecords.stream().map(ReceiptsTagsResponse::new).collect(toList());
     }
 
 }

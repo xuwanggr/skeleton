@@ -38,7 +38,7 @@ public class TagDao {
              return "inserted";
          }
          else{
-             dsl.deleteFrom(TAGS).where(TAGS.RECEIPTID.eq(receiptID)).execute();
+             dsl.deleteFrom(TAGS).where(TAGS.RECEIPTID.eq(receiptID).and(TAGS.TAGNAME.eq(tag))).execute();
             //delete
              return "deleted";
          }
