@@ -45,16 +45,19 @@ public class ReceiptImageController {
             BatchAnnotateImagesResponse responses = client.batchAnnotateImages(Collections.singletonList(request));
             AnnotateImageResponse res = responses.getResponses(0);
 
-            String merchantName = null;
-            BigDecimal amount = null;
+            String[] response = res.getTextAnnotationsList().get(0).getDescription().split("\n");
 
-            // Your Algo Here!!
-            // Sort text annotations by bounding polygon.  Top-most non-decimal text is the merchant
-            // bottom-most decimal text is the total amount
-            for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
-                out.printf("Position : %s\n", annotation.getBoundingPoly());
-                out.printf("Text: %s\n", annotation.getDescription());
+
+            String merchantName = response[0];
+            BigDecimal amount = new BigDecimal(0);
+
+            for(String string: response){
+                out.println(string);
+                if(string.contains("$")){
+                    amount = new BigDecimal(Integer.parseInt(string.replaceAll("[^0-9]", ""))*0.01);
+                }
             }
+
 
             //TextAnnotation fullTextAnnotation = res.getFullTextAnnotation();
             return new ReceiptSuggestionResponse(merchantName, amount);
