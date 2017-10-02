@@ -7,6 +7,9 @@ import org.eclipse.jetty.server.session.SessionHandler;
 import org.h2.jdbcx.JdbcConnectionPool;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DefaultConfiguration;
+import controllers.TagController;
+import controllers.NetIdController;
+import controllers.HelloWorldController;
 
 public class SimpleApplication extends Application<Configuration> {
     public static void main(String[] args) throws Exception {
@@ -41,5 +44,6 @@ public class SimpleApplication extends Application<Configuration> {
         env.jersey().register(new StaticHtmlController());
         env.jersey().register(new ReceiptController(receiptDao));
         env.jersey().register(new ReceiptImageController());
+        env.jersey().register(new NetIdController());
     }
 }
